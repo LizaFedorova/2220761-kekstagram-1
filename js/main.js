@@ -17,6 +17,7 @@ const DESCRIPTIONS = ['Всегда начинайте свой день с хо
 const MIN_LIKES = 15;
 const MAX_LIKES = 200;
 const MAX_COUNT_PHOTOS = 25;
+const MAX_COUNT_COMMENTS = 6;
 
 const getRandomPositiveInteger = (a, b) => {
   const lower = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
@@ -29,7 +30,7 @@ const getRandomArrayElement = (elements) => elements[getRandomPositiveInteger(0,
 
 const createComments = (id) => ({
   id,
-  avatar: `img/avatar-${getRandomPositiveInteger(1, 6)}.svg`,
+  avatar: `img/avatar-${getRandomPositiveInteger(1, MAX_COUNT_COMMENTS)}.svg`,
   message: getRandomArrayElement(MESSAGES),
   name: getRandomArrayElement(NAMES),
 });
@@ -39,10 +40,10 @@ const createPhotosDescription = (id) => ({
   url: `photos/${id}.jpg`,
   description: getRandomArrayElement(DESCRIPTIONS),
   likes: getRandomPositiveInteger(MIN_LIKES, MAX_LIKES),
-  comments: Array.from({length: getRandomPositiveInteger(1, 8)}).map((element, index) => {element = createComments(index + 1);}),
+  comments: Array.from({length: getRandomPositiveInteger(1, MAX_COUNT_COMMENTS)}).map((element, index) => createComments(index + 1)),
 });
 
-const PHOTOS_DESCRIPTIONS = Array.from({length: MAX_COUNT_PHOTOS}).map((element, index) => {element = createPhotosDescription(index + 1);});
+const photosDescription = Array.from({length: MAX_COUNT_PHOTOS}).map((element, index) =>  createPhotosDescription(index + 1));
 
 // eslint-disable-next-line no-unused-expressions
-PHOTOS_DESCRIPTIONS;
+photosDescription;
